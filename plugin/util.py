@@ -9,7 +9,7 @@ import requests
 import socket
 import re
 from string import ascii_lowercase, digits
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 
 def randomString(length=8):

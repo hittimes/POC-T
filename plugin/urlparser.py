@@ -3,7 +3,7 @@
 # project = https://github.com/Xyntax/POC-T
 # author = i@cdxy.me
 
-import urlparse
+import urllib.parse
 
 
 def get_domain(url):
@@ -16,8 +16,8 @@ def get_domain(url):
     Return:
     'http://cdxy.me:80'
     """
-    p = urlparse.urlparse(url)
-    return urlparse.urlunsplit([p.scheme, p.netloc, '', '', ''])
+    p = urllib.parse.urlparse(url)
+    return urllib.parse.urlunsplit([p.scheme, p.netloc, '', '', ''])
 
 
 def iterate_path(ori_str):
@@ -35,7 +35,7 @@ def iterate_path(ori_str):
      'http://cdxy.me:80/cdsa/cda/aaa.jsp']
 
     """
-    parser = urlparse.urlparse(ori_str)
+    parser = urllib.parse.urlparse(ori_str)
     _path_list = parser.path.replace('//', '/').strip('/').split('/')
     _ans_list = set()
     _ans_list.add(ori_str)
@@ -47,13 +47,13 @@ def iterate_path(ori_str):
     s = ''
     for each in _path_list:
         s += '/' + each
-        _ans_list.add(urlparse.urljoin(ori_str, s))
+        _ans_list.add(urllib.parse.urljoin(ori_str, s))
     return _ans_list
 
 
 if __name__ == '__main__':
     url = 'http://cdxy.me:80/cdsa/cda/aaa.jsp?id=2#'
-    print urlparse.urlparse(url)
-    print get_domain(url)
+    print(urllib.parse.urlparse(url))
+    print(get_domain(url))
     for each in iterate_path(url):
-        print each
+        print(each)
