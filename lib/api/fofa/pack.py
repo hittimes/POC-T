@@ -8,7 +8,7 @@ from lib.core.data import paths, logger
 from lib.utils.config import ConfigFileParser
 from lib.core.common import getSafeExString
 import getpass
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import base64
 import json
 
@@ -17,10 +17,10 @@ def check(email, key):
     if email and key:
         auth_url = "https://fofa.so/api/v1/info/my?email={0}&key={1}".format(email, key)
         try:
-            response = urllib.urlopen(auth_url)
+            response = urllib.request.urlopen(auth_url)
             if response.code == 200:
                 return True
-        except Exception, e:
+        except Exception as e:
             # logger.error(e)
             return False
     return False
@@ -41,7 +41,7 @@ def FofaSearch(query, limit=100, offset=0):  # TODO 付费获取结果的功能�
         logger.warning(msg)
         msg = 'Please input your FoFa Email and API Key below.'
         logger.info(msg)
-        email = raw_input("Fofa Email: ").strip()
+        email = input("Fofa Email: ").strip()
         key = getpass.getpass(prompt='Fofa API Key: ').strip()
         if not check(email, key):
             msg = 'Fofa API authorization failed, Please re-run it and enter a valid key.'
@@ -52,7 +52,7 @@ def FofaSearch(query, limit=100, offset=0):  # TODO 付费获取结果的功能�
     request = "https://fofa.so/api/v1/search/all?email={0}&key={1}&qbase64={2}".format(email, key, query)
     result = []
     try:
-        response = urllib.urlopen(request)
+        response = urllib.request.urlopen(request)
         resp = response.readlines()[0]
         resp = json.loads(resp)
         if resp["error"] is None:
@@ -60,7 +60,7 @@ def FofaSearch(query, limit=100, offset=0):  # TODO 付费获取结果的功能�
                 result.append(item[0])
             if resp.get('size') >= 100:
                 logger.info("{0} items found! just 100 returned....".format(resp.get('size')))
-    except Exception, e:
+    except Exception as e:
         sys.exit(logger.error(getSafeExString(e)))
     finally:
         return result

@@ -39,7 +39,7 @@ class ZoomEye(object):
     def manual_login(self):
         msg = 'Please input your ZoomEye Email and Password below.'
         logger.info(msg)
-        self.username = raw_input('ZoomEye Username(Email): ').strip()
+        self.username = input('ZoomEye Username(Email): ').strip()
         self.password = getpass.getpass(prompt='ZoomEye Password: ').strip()
         if not self.get_token():
             msg = 'Invalid ZoomEye username or password.'
@@ -120,10 +120,10 @@ class ZoomEye(object):
 def show_site_ip(data):
     if data:
         for i in data:
-            print(i.get('site'), i.get('ip'))
+            print((i.get('site'), i.get('ip')))
 
 
 def show_ip_port(data):
     if data:
         for i in data:
-            print(i.get('ip'), i.get('portinfo').get('port'))
+            print((i.get('ip'), i.get('portinfo').get('port')))

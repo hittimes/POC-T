@@ -37,6 +37,6 @@ def stdoutencode(data):
         else:
             retVal = data.encode(sys.stdout.encoding)
     except Exception:
-        retVal = data.encode(UNICODE_ENCODING) if isinstance(data, unicode) else data
+        retVal = data.encode(UNICODE_ENCODING) if isinstance(data, str) else data
 
     return retVal
