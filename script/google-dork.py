@@ -4,7 +4,7 @@
 # author = z3r0yu
 
 import pychrome
-import urlparse
+import urllib.parse
 import threading
 from lib.core.data import paths,th,logger
 from lib.controller.engine import output2file
@@ -83,7 +83,7 @@ def poc(target):
 	subdomins=subdomin_finder_by_google(target)
 	tmp=[]
 	for sub in subdomins:
-		url=urlparse.urlparse(sub)
+		url=urllib.parse.urlparse(sub)
 		if url.scheme+"://"+url.netloc != 'https://www.google.com':
 			tmp.append(url.scheme+"://"+url.netloc)
 	subdomins=list(set(tmp))

@@ -5,7 +5,7 @@
 # @Last Modified time: 2018-12-22 16:59:27
 
 import pychrome
-import urlparse
+import urllib.parse
 import threading
 from lib.core.data import paths,th,logger
 from lib.controller.engine import output2file
@@ -87,7 +87,7 @@ def poc(target):
 	subdomins=subdomin_finder_by_bing(target)
 	tmp=[]
 	for sub in subdomins:
-		url=urlparse.urlparse(sub)
+		url=urllib.parse.urlparse(sub)
 		tmp.append(url.scheme+"://"+url.netloc)
 	subdomins=list(set(tmp))
 	if subdomins:
